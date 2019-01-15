@@ -11,9 +11,13 @@ export class InputComponentComponent implements OnInit {
   someInput: string = '';
   poljeArray =[];
     onClickMe() {
+      
       this.clickMessage = this.someInput;
+      if (this.clickMessage) {
       this.poljeArray.push(this.clickMessage);
+      this.someInput = '';
     }
+  }
 
   constructor() {}
 

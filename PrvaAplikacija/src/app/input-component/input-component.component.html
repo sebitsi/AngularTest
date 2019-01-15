@@ -1,19 +1,19 @@
 <div class="basicpadding">
-  <div style="width:75%">
+  <div style="width:75%; border: 2px solid black" class ="basicpadding">
     <div>
       <label>Vnos podatkov</label>
       <table>
         <tr>
-          <td><input class="e-input" type="text" [(ngModel)]="someInput" placeholder="Vnesi tukaj" /></td> 
-          <td style="padding-left:15px"><button (click) = "onClickMe()" ejs-button cssClass="e-success">Potrdi vnos</button></td>
+          <td><input class="e-input" type="text" [(ngModel)]="someInput" (keyup.enter)="onClickMe()" placeholder="Vnesi tukaj" /></td> 
+          <td style="padding-left:15px"><button (click) = "onClickMe()"  ejs-button cssClass="e-success">Potrdi vnos</button></td>
         </tr>
       </table>
     </div>
-    <div>
+    <div style="width: 30%">
       <p></p>
       <p></p>
       <p></p>
-      <p *ngFor="let item of poljeArray">
+      <p style="padding-bottom: 5px;border-bottom: 1px solid gray; font-size: 14px" *ngFor="let item of poljeArray">
         {{ item }}
       </p>
     
