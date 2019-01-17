@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { strictEqual } from 'assert';
 // import { Polje } from '../polje';
 
 @Component({
@@ -14,6 +15,10 @@ export class InputComponentComponent implements OnInit {
   @Input() public ime: string;
 
 
+
+
+
+
     onClickMe() {
       
       this.clickMessage = this.someInput;
@@ -21,13 +26,33 @@ export class InputComponentComponent implements OnInit {
         this.poljeArray.push(this.clickMessage);
         this.someInput = '';
       } 
+
+      this.dogodek.emit("Kliknil me je !!");
     }
 
-  constructor() {}
+  constructor() {
+    this.dogodek = new EventEmitter<String>();
+
+
+  }
 
   ngOnInit() {
   }
-  
+
+
+  // ------------------------
+  @Input()  
+  public vhodna: string;
+    
+  // @Output()
+  // public izhodna: string;
+
+  @Output()
+  public dogodek: EventEmitter<String>;
+
+
+
+
 }
 
   

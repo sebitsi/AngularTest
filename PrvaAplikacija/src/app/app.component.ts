@@ -6,6 +6,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
   title = 'PrvaAplikacija';
   public data = ['Jan', 'Tomaž', 'Jure'];
+
+  public  bla (vrednost: string) {
+     console.log(vrednost);
+  }
+
 }
+
+
+
