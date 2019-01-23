@@ -3,17 +3,33 @@
       <div class="column">
           <form #vari>
               <mat-form-field>
-                <input matInput placeholder="Skip">
+                <input matInput placeholder="Title" [(ngModel)]="iskalniNiz" name="first">
               </mat-form-field>
+              <mat-form-field style="margin-left: 10px">
+                  <input matInput placeholder="More than x pages" [(ngModel)]="pageCount" name="two">
+                </mat-form-field>
           </form>
         </div>
       <div class="column" style="margin-top:10px;">
-        <button (click)=onGet(vari) mat-raised-button>
+        <button (click)=IsciKnjige() mat-raised-button>
           Išči
         </button>
       </div>
   </div>
   <div>
-    adc
+    <ul>
+      <li *ngFor="let item of najdeno">
+          {{item.volumeInfo.title}}
+      </li>
+    </ul>
+      <table mat-table [dataSource]="najdeno"> 
+          <ng-container matColumnDef="title">
+              <th mat-header-cell *matHeaderCellDef> Book title </th>
+              <td mat-cell *matCellDef="let item"> {{item.volumeInfo.title}} </td>
+          </ng-container>
+          
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+          <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+      </table>
   </div>
 </div>

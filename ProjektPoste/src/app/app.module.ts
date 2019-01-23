@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ServerService } from './server.service';
 import { MatInputModule } from '../../node_modules/@angular/material/input';
 import { MatButtonModule } from '../../node_modules/@angular/material/button';
+import { MatTableModule } from '../../node_modules/@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,9 @@ import { MatButtonModule } from '../../node_modules/@angular/material/button';
     BrowserAnimationsModule,
     HttpClientModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTableModule,
+    
   ],
   providers: [ServerService],
   bootstrap: [AppComponent]
