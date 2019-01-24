@@ -1,35 +1,76 @@
 <div>
   <div class="row">
       <div class="column">
-          <form #vari>
+          <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
               <mat-form-field>
-                <input matInput placeholder="Title" [(ngModel)]="iskalniNiz" name="first">
+                <input 
+                  matInput placeholder="Title" 
+                  name="one"
+                  id="formtitle"
+                  formControlName="formtitle">
               </mat-form-field>
-              <mat-form-field style="margin-left: 10px">
-                  <input matInput placeholder="More than x pages" [(ngModel)]="pageCount" name="two">
+              <mat-form-field style="margin-left: 10px;">
+                  <input 
+                    matInput placeholder="Author" 
+                    name="three"
+                    id="formauthor"
+                    formControlName="formauthor">
                 </mat-form-field>
+              <mat-form-field style="margin-left: 10px; width:15%">
+                <input 
+                  matInput placeholder="Result count" 
+                  name="two"
+                  id="formcount"
+                  formControlName="formcount">
+              </mat-form-field>
+              <label *ngIf="searchForm.get('formcount').invalid"></label>
+              <mat-radio-group 
+                style="margin-left:10px" 
+                class="example-radio-group"
+                formControlName="formorder">
+                <mat-radio-button class="example-radio-button" *ngFor="let item of orderBy" [value]="item">
+                  {{item}}
+                </mat-radio-button>
+              </mat-radio-group>
+              <mat-form-field
+                style="margin-left:10px"  
+                formControlName="formselect">
+                <mat-select placeholder="Tip čtiva">
+                  <mat-option *ngFor="let item of opcije" [value]="item.value">
+                    {{item.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <button style="margin-left:15px" type="submit" color="primary" mat-raised-button [disabled]="searchForm.invalid">
+                  Submit
+                </button>
+                          
           </form>
         </div>
-      <div class="column" style="margin-top:10px;">
-        <button (click)=IsciKnjige() mat-raised-button>
-          Išči
-        </button>
-      </div>
+      
   </div>
   <div>
     <ul>
       <li *ngFor="let item of najdeno">
-          {{item.volumeInfo.title}}
+          {{item.volumeInfo.title}}  |  {{item.volumeInfo.pageCount}}
       </li>
     </ul>
       <table mat-table [dataSource]="najdeno"> 
-          <ng-container matColumnDef="title">
+          <ng-container matColumnDef="Title">
               <th mat-header-cell *matHeaderCellDef> Book title </th>
               <td mat-cell *matCellDef="let item"> {{item.volumeInfo.title}} </td>
           </ng-container>
+          <ng-container matColumnDef="Page count" >
+            <th mat-header-cell *matHeaderCellDef> Page count </th>
+            <td mat-cell *matCellDef="let item" > {{item.volumeInfo.pageCount}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Link" style="margin-left: 5px">
+            <th mat-header-cell *matHeaderCellDef style="margin-left: 5px"> Link </th>
+            <td mat-cell *matCellDef="let item"> <a href="{{item.volumeInfo.previewLink}}"> Preview </a> </td>
+          </ng-container>
           
-          <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-          <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
   </div>
 </div>
