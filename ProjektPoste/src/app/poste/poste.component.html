@@ -34,10 +34,11 @@
               </mat-radio-group>
               <mat-form-field
                 style="margin-left:10px"  
-                formControlName="formselect">
-                <mat-select placeholder="Tip čtiva">
-                  <mat-option *ngFor="let item of opcije" [value]="item.value">
-                    {{item.viewValue}}
+                >
+                <mat-select placeholder="Tip čtiva"
+                            formControlName="formselect">
+                  <mat-option *ngFor="let item of opcije" [value]="item">
+                    {{item}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -49,6 +50,10 @@
         </div>
       
   </div>
+
+<!-- ////////////////////////////////////////////////////////////// -->
+
+
   <div>
     <ul>
       <li *ngFor="let item of najdeno">

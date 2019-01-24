@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, SelectControlValueAccessor } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -30,9 +30,8 @@ import { MatSelectModule } from '../../node_modules/@angular/material/select';
     MatTableModule,
     ReactiveFormsModule,
     MatRadioModule,
-    MatSelectModule,
-
-    
+    MatSelectModule
+  
   ],
   providers: [ServerService],
   bootstrap: [AppComponent]
