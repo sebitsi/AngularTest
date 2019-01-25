@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { ServerService } from '../server.service';
 import { HttpParams } from '@angular/common/http';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+// import '../../../node_modules/rxjs/operator/debounceTime';
 
 @Component({
   selector: 'app-poste',
@@ -25,6 +28,11 @@ export class PosteComponent implements OnInit {
   temp2: string = null;
   temp3: string;
   temp4: string;
+  textt: string;
+
+  
+  queryField: FormControl = new FormControl();
+  kanal: Subject<string> = new Subject<string>();
   
 
   constructor(private serverService: ServerService) { }
@@ -38,6 +46,38 @@ export class PosteComponent implements OnInit {
       'formselect': new FormControl('All')
 
     });
+    this.queryField.valueChanges
+      .pipe(debounceTime(1000))
+      .pipe(distinctUntilChanged())
+      .subscribe(x => {
+         console.log(x);
+
+         this.params = new HttpParams().
+         //set("q", "intitle:"+ this.searchForm.get("formtitle").value).//+"inauthor:"+'Josip').
+         // set("q", "intitle:"+ this.searchForm.get("formtitle").value + '+' + "inauthor:"+ this.searchForm.get("formauthor").value).
+         set("q", x).
+         set("maxResults", this.searchForm.get("formcount").value).
+         set("orderBy", this.searchForm.get("formorder").value).
+         set("printType", this.searchForm.get("formselect").value); 
+         //Create new HttpParams
+
+
+          this.serverService.getPoste(this.params,this.searchForm)
+            .subscribe(
+            (response: any) => {
+            const data = response;
+            console.log(data);
+            this.najdeno = data.items;
+            },
+
+            (error) => console.log(error),
+            );
+
+
+
+      //   this.textt = x;
+    });
+   
   }
 
   // public IsciKnjige(){
@@ -57,30 +97,30 @@ export class PosteComponent implements OnInit {
     this.titleSearch = this.searchForm.get("formtitle").value;
     this.authorSearch = this.searchForm.get("formauthor").value;
     // --------------------------------------------------------------------
-    if (this.titleSearch) {
-      this.temp1 = '+' + '"intitle:"'+ '+' + this.titleSearch;
-    }
-    else{
-      this.temp1 = null;
-    }
-    if (this.authorSearch) {
-      this.temp2 = '+' + '"inauthor:"' + '+' + this.authorSearch;
-    }
-    else{
-      this.temp2 = null;
-    }
-    this.temp3 = this.temp1 + this.temp2;
-    if (!this.titleSearch && !this.authorSearch){
-      this.temp4 = this.temp3;
-    }
-    else{
-      this.temp4 = this.temp3.substr(1);
-    }
-    if (this.titleSearch && !this.authorSearch){
-      this.temp4 = this.temp1.substr(1);
-    }
-    console.log(this.temp3);
-    console.log(this.temp4);
+        if (this.titleSearch) {
+          this.temp1 = '+' + '"intitle:"'+ '+' + this.titleSearch;
+        }
+        else{
+          this.temp1 = null;
+        }
+        if (this.authorSearch) {
+          this.temp2 = '+' + '"inauthor:"' + '+' + this.authorSearch;
+        }
+        else{
+          this.temp2 = null;
+        }
+        this.temp3 = this.temp1 + this.temp2;
+        if (!this.titleSearch && !this.authorSearch){
+          this.temp4 = this.temp3;
+        }
+        else{
+          this.temp4 = this.temp3.substr(1);
+        }
+        if (this.titleSearch && !this.authorSearch){
+          this.temp4 = this.temp1.substr(1);
+        }
+        console.log(this.temp3);
+        console.log(this.temp4);
     // --------------------------------------------------------------------
     this.params = new HttpParams().
                                   //set("q", "intitle:"+ this.searchForm.get("formtitle").value).//+"inauthor:"+'Josip').
@@ -92,7 +132,7 @@ export class PosteComponent implements OnInit {
                                   //Create new HttpParams
 
 
-    this.serverService.getPoste(this.params)
+    this.serverService.getPoste(this.params, this.searchForm)
       .subscribe(
         (response: any) => {
           const data = response;

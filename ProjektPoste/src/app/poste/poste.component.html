@@ -81,4 +81,15 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
   </div>
+  <div>
+    <mat-form-field>
+      <input
+        matInput placeholder="Input" 
+        name="prvi"
+        id="prviinput"
+        [formControl]="queryField"
+         >    
+    </mat-form-field>
+    <label>{{textt}}</label>
+  </div>
 </div>
