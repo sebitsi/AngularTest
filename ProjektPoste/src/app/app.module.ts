@@ -13,6 +13,9 @@ import { MatButtonModule } from '../../node_modules/@angular/material/button';
 import { MatTableModule } from '../../node_modules/@angular/material/table';
 import { MatRadioModule } from '../../node_modules/@angular/material/radio';
 import { MatSelectModule } from '../../node_modules/@angular/material/select';
+import { MatIconModule } from '../../node_modules/@angular/material/icon';
+import { CdkTableModule } from '@angular/cdk/table';
+import { A11yModule } from '@angular/cdk/a11y';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,11 @@ import { MatSelectModule } from '../../node_modules/@angular/material/select';
     MatTableModule,
     ReactiveFormsModule,
     MatRadioModule,
-    MatSelectModule
+    MatSelectModule,
+    CdkTableModule,
+    A11yModule,
+    MatIconModule
+    
   
   ],
   providers: [ServerService],

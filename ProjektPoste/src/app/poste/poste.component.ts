@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ServerService } from '../server.service';
-import { HttpParams } from '@angular/common/http';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { combineLatest } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-// import '../../../node_modules/rxjs/operator/debounceTime';
 
 @Component({
   selector: 'app-poste',
@@ -16,24 +14,12 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 export class PosteComponent implements OnInit {
   public najdeno: any;
   public columnsToDisplay = ['title'];
-  public params;
   displayedColumns: string[] = ['Title', 'Page count', 'Link'];
   searchForm: FormGroup;
   orderBy: string[] = ['Relevance', 'Newest'];
   opcije: string[] = ['All', 'Books', 'Magazines'];
-// if variables
-  titleSearch: string;
-  authorSearch: string;
-  temp1: string = null;
-  temp2: string = null;
-  temp3: string;
-  temp4: string;
-  textt: string;
 
-  
-  queryField: FormControl = new FormControl();
-  kanal: Subject<string> = new Subject<string>();
-  
+  skupni$: any;  
 
   constructor(private serverService: ServerService) { }
 
@@ -44,106 +30,37 @@ export class PosteComponent implements OnInit {
       'formcount': new FormControl('20', Validators.required),
       'formorder': new FormControl('Relevance'),
       'formselect': new FormControl('All')
-
     });
-    this.queryField.valueChanges
-      .pipe(debounceTime(1000))
+    
+    this.skupni$ = combineLatest(this.searchForm.get('formtitle').valueChanges, 
+                                 this.searchForm.get('formauthor').valueChanges, 
+                                 this.searchForm.get('formcount').valueChanges, 
+                                 this.searchForm.get('formorder').valueChanges, 
+                                 this.searchForm.get('formselect').valueChanges);
+
+    this.skupni$
+      .pipe(debounceTime(500))
       .pipe(distinctUntilChanged())
       .subscribe(x => {
-         console.log(x);
-
-         this.params = new HttpParams().
-         //set("q", "intitle:"+ this.searchForm.get("formtitle").value).//+"inauthor:"+'Josip').
-         // set("q", "intitle:"+ this.searchForm.get("formtitle").value + '+' + "inauthor:"+ this.searchForm.get("formauthor").value).
-         set("q", x).
-         set("maxResults", this.searchForm.get("formcount").value).
-         set("orderBy", this.searchForm.get("formorder").value).
-         set("printType", this.searchForm.get("formselect").value); 
-         //Create new HttpParams
-
-
-          this.serverService.getPoste(this.params,this.searchForm)
-            .subscribe(
+          console.log(x);
+          this.serverService.getPoste(x)
+          .subscribe(
             (response: any) => {
-            const data = response;
-            console.log(data);
-            this.najdeno = data.items;
+              const data = response;
+              // console.log(data);
+              this.najdeno = data.items;
             },
-
+    
             (error) => console.log(error),
-            );
-
-
-
-      //   this.textt = x;
+          );
     });
-   
+
+    this.searchForm.patchValue({
+      formtitle: "",
+      formauthor: "",
+      formcount: "20",
+      formorder: "Relevance",
+      formselect: "All"
+    })
   }
-
-  // public IsciKnjige(){
-  //   // this.params = new HttpParams().set("q", this.iskalniNiz).set("maxResults", this.pageCount); //Create new HttpParams
-  //   // this.serverService.getPoste(this.iskalniNiz, this.pageCount, this.params)
-  //   //   .subscribe(
-  //   //     (response: any) => {
-  //   //       const data = response;
-  //   //       console.log(data);
-  //   //       this.najdeno = data.items;
-  //   //     },
-  //   //     (error) => console.log(error),
-  //   //   );
-  // }
-  
-  onSubmit() {
-    this.titleSearch = this.searchForm.get("formtitle").value;
-    this.authorSearch = this.searchForm.get("formauthor").value;
-    // --------------------------------------------------------------------
-        if (this.titleSearch) {
-          this.temp1 = '+' + '"intitle:"'+ '+' + this.titleSearch;
-        }
-        else{
-          this.temp1 = null;
-        }
-        if (this.authorSearch) {
-          this.temp2 = '+' + '"inauthor:"' + '+' + this.authorSearch;
-        }
-        else{
-          this.temp2 = null;
-        }
-        this.temp3 = this.temp1 + this.temp2;
-        if (!this.titleSearch && !this.authorSearch){
-          this.temp4 = this.temp3;
-        }
-        else{
-          this.temp4 = this.temp3.substr(1);
-        }
-        if (this.titleSearch && !this.authorSearch){
-          this.temp4 = this.temp1.substr(1);
-        }
-        console.log(this.temp3);
-        console.log(this.temp4);
-    // --------------------------------------------------------------------
-    this.params = new HttpParams().
-                                  //set("q", "intitle:"+ this.searchForm.get("formtitle").value).//+"inauthor:"+'Josip').
-                                  // set("q", "intitle:"+ this.searchForm.get("formtitle").value + '+' + "inauthor:"+ this.searchForm.get("formauthor").value).
-                                  set("q", this.temp4).
-                                  set("maxResults", this.searchForm.get("formcount").value).
-                                  set("orderBy", this.searchForm.get("formorder").value).
-                                  set("printType", this.searchForm.get("formselect").value); 
-                                  //Create new HttpParams
-
-
-    this.serverService.getPoste(this.params, this.searchForm)
-      .subscribe(
-        (response: any) => {
-          const data = response;
-          console.log(data);
-          this.najdeno = data.items;
-        },
-
-        (error) => console.log(error),
-      );
-  }
-  
-}
-
- 
+ }

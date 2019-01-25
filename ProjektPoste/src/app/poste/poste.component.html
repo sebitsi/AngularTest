@@ -1,7 +1,8 @@
 <div>
   <div class="row">
       <div class="column">
-          <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+          <!-- <form [formGroup]="searchForm" (ngSubmit)="onSubmit()"> -->
+          <form cdkTrapFocus [formGroup]="searchForm">
               <mat-form-field>
                 <input 
                   matInput placeholder="Title" 
@@ -21,7 +22,8 @@
                   matInput placeholder="Result count" 
                   name="two"
                   id="formcount"
-                  formControlName="formcount">
+                  formControlName="formcount"
+                  required>
               </mat-form-field>
               <label *ngIf="searchForm.get('formcount').invalid"></label>
               <mat-radio-group 
@@ -34,21 +36,18 @@
               </mat-radio-group>
               <mat-form-field
                 style="margin-left:10px"  
+                
                 >
-                <mat-select placeholder="Tip čtiva"
-                            formControlName="formselect">
-                  <mat-option *ngFor="let item of opcije" [value]="item">
+                <mat-select placeholder="Type of material"
+                            formControlName="formselect"
+                            >
+                  <mat-option *ngFor="let item of opcije" [value]="item" >
                     {{item}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-              <button style="margin-left:15px" type="submit" color="primary" mat-raised-button [disabled]="searchForm.invalid">
-                  Submit
-                </button>
-                          
           </form>
-        </div>
-      
+     </div>     
   </div>
 
 <!-- ////////////////////////////////////////////////////////////// -->
@@ -80,16 +79,5 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
-  </div>
-  <div>
-    <mat-form-field>
-      <input
-        matInput placeholder="Input" 
-        name="prvi"
-        id="prviinput"
-        [formControl]="queryField"
-         >    
-    </mat-form-field>
-    <label>{{textt}}</label>
-  </div>
+  </div> 
 </div>

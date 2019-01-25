@@ -1,23 +1,35 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { FormGroup } from '@angular/forms';
 
 @Injectable()
 export class ServerService {
     
      constructor(private http: HttpClient) {}
+     // ----------------------------vrednosti za if stavke
      titleSearch: string;
      authorSearch: string;
      temp1: string = null;
      temp2: string = null;
      temp3: string;
      temp4: string;
-     searchForm: FormGroup;
 
-     getPoste(params: any, forma) {
-          this.searchForm = forma;
-          this.titleSearch = this.searchForm.get("formtitle").value;
-          this.authorSearch = this.searchForm.get("formauthor").value;
+     params: any;
+     //------------------------------Form values
+     formtitle: string;
+     formauthor: string;
+     formcount: string;
+     formorder: string;
+     formselect: string;
+     
+     getPoste(x) {
+          this.formtitle = x[0];
+          this.formauthor = x[1];
+          this.formcount = x[2];
+          this.formorder = x[3];
+          this.formselect = x[4];
+          
+          this.titleSearch = x[0];
+          this.authorSearch = x[1];
           // --------------------------------------------------------------------
               if (this.titleSearch) {
                 this.temp1 = '+' + '"intitle:"'+ '+' + this.titleSearch;
@@ -43,16 +55,19 @@ export class ServerService {
               }
               console.log(this.temp3);
               console.log(this.temp4);
-          // --------------------------------------------------------------------
-               params = new HttpParams().
+              console.log(x[0]);
+              console.log(x[1]);
+          // -------------------------------------------------------------------- Parametri ter klic http
+               this.params = new HttpParams().
                               //set("q", "intitle:"+ this.searchForm.get("formtitle").value).//+"inauthor:"+'Josip').
                               // set("q", "intitle:"+ this.searchForm.get("formtitle").value + '+' + "inauthor:"+ this.searchForm.get("formauthor").value).
                               set("q", this.temp4).
-                              set("maxResults", this.searchForm.get("formcount").value).
-                              set("orderBy", this.searchForm.get("formorder").value).
-                              set("printType", this.searchForm.get("formselect").value); 
+                              // set("q", x).
+                              set("maxResults", this.formcount).
+                              set("orderBy", this.formorder).
+                              set("printType", this.formselect); 
                                         //Create new HttpParams
-               return this.http.get('https://www.googleapis.com/books/v1/volumes', {params: params});
+               return this.http.get('https://www.googleapis.com/books/v1/volumes', {params: this.params});
         //  return this.http.get('http://192.168.200.203:5000/api/services/core/RTE/GetPosta');
      }
 }
