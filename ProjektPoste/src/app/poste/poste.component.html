@@ -86,12 +86,12 @@
                     
                       
                       <div *ngIf="item.volumeInfo.imageLinks?.smallThumbnail" >
-                        <img src="{{item.volumeInfo.imageLinks?.smallThumbnail}}" alt="no_img" height="100" width="100" (click)="openDialog(item.volumeInfo.imageLinks?.thumbnail)">
+                        <img src="{{item.volumeInfo.imageLinks?.smallThumbnail}}" alt="no_img" height="100" width="100" (click)="openDialog(item.volumeInfo.imageLinks?.thumbnail,
+                                                                                                                                            item.volumeInfo.description,
+                                                                                                                                            'https://books.google.si/books?id=' + item.id + '&lpg=RA1-PA18&dq=0&as_pt=ALLTYPES&hl=sl&pg=RA1-PA18&output=embed')">
                       </div>
                       <div *ngIf="!item.volumeInfo.imageLinks?.smallThumbnail">
-                        <a href="{{item.volumeInfo.previewLink}}">
                           <img src="./assets/images/noimg.jpeg" alt="no_img" height="100" width="100">
-                        </a>
                       </div>
                        
                 </div>
@@ -100,9 +100,6 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr [@trigger1] mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
-      <button (click)="openDialog()">
-          klik me
-      </button>
   </div> 
 </div>
 

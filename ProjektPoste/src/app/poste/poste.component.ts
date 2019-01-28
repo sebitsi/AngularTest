@@ -106,12 +106,14 @@ export class PosteComponent implements OnInit {
       this.state = 'normal';
     }
   }
-  openDialog(path: string) {
+  openDialog(path: string, desc: string, pdf: string) {
     // this.imgPath = "{{item.volumeInfo.imageLinks?.smallThumbnail}}"
     const dialogRef = this.dialog.open(PosteThumbnailComponent, {
-      // height: '50%',
-      // width: '50%',
-      data: { imgPath: path}
-    });
+      height: '75%',
+      width: '75%',
+      data: { imgPath: path, bookDesc: desc, bookPdf: pdf}
+      
+    }
+    );
   }
  }
