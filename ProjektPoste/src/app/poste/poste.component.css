@@ -6,6 +6,22 @@
   padding: 5px;
 }
 
+mat-header-cell {
+  display: flex
+}
+mat-header-row {
+  display: flex
+}
+mat-cell {
+  display: flex
+}
+mat-row {
+  display: flex
+}
+mat-table {
+  display: flex
+}
+
 .example-radio-group {
   display: inline-flex;
   flex-direction: column;

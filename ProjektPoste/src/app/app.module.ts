@@ -1,7 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, SelectControlValueAccessor } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { CdkTableModule } from '@angular/cdk/table';
+import { A11yModule } from '@angular/cdk/a11y';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,13 +17,17 @@ import { MatTableModule } from '../../node_modules/@angular/material/table';
 import { MatRadioModule } from '../../node_modules/@angular/material/radio';
 import { MatSelectModule } from '../../node_modules/@angular/material/select';
 import { MatIconModule } from '../../node_modules/@angular/material/icon';
-import { CdkTableModule } from '@angular/cdk/table';
-import { A11yModule } from '@angular/cdk/a11y';
+import { PosteThumbnailComponent } from './poste/poste-thumbnail/poste-thumbnail.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    PosteComponent
+    PosteComponent,
+    PosteThumbnailComponent
+  ],
+  entryComponents: [
+    PosteThumbnailComponent
   ],
   imports: [
     BrowserModule,
@@ -36,8 +43,8 @@ import { A11yModule } from '@angular/cdk/a11y';
     MatSelectModule,
     CdkTableModule,
     A11yModule,
-    MatIconModule
-    
+    MatIconModule,
+    MatDialogModule
   
   ],
   providers: [ServerService],

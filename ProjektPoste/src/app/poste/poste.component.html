@@ -54,30 +54,55 @@
 
 
   <div>
-    <ul>
-      <li *ngFor="let item of najdeno">
-          {{item.volumeInfo.title}}  |  {{item.volumeInfo.pageCount}}
-      </li>
-    </ul>
-      <table mat-table [dataSource]="najdeno"> 
+        <table mat-table [dataSource]="najdeno"> 
           <ng-container matColumnDef="Title">
-              <th mat-header-cell *matHeaderCellDef> Book title </th>
-              <td mat-cell *matCellDef="let item"> {{item.volumeInfo.title}} </td>
+              <th mat-header-cell  *matHeaderCellDef> Book title </th>
+              <td mat-cell *matCellDef="let item"> 
+                  <div style="width: 90%; margin-left: 5px">
+                    {{item.volumeInfo.title}}
+                  </div>
+               </td>
           </ng-container>
-          <ng-container matColumnDef="Page count" >
+          <ng-container  matColumnDef="Page count" >
             <th mat-header-cell *matHeaderCellDef> Page count </th>
-            <td mat-cell *matCellDef="let item" > {{item.volumeInfo.pageCount}} </td>
+            <td mat-cell *matCellDef="let item">
+              <div style="width: 100px; margin-left: 2px">
+               {{item.volumeInfo.pageCount}}  
+               </div>
+            </td>
           </ng-container>
-          <ng-container matColumnDef="Link" style="margin-left: 5px">
-            <th mat-header-cell *matHeaderCellDef style="margin-left: 5px"> Link </th>
-            <td mat-cell *matCellDef="let item"> <a href="{{item.volumeInfo.previewLink}}"> Preview </a> </td>
+          <ng-container matColumnDef="Link">
+            <th mat-header-cell *matHeaderCellDef> Link </th>
+            <td mat-cell *matCellDef="let item"> 
+              <div style="width:150px">
+                <a href="{{item.volumeInfo.previewLink}}"> Preview </a> 
+              </div>
+            </td>
           </ng-container>
-          <ng-container matColumnDef="Tip čtiva" >
-              <th mat-header-cell *matHeaderCellDef> Page count </th>
-              <td mat-cell *matCellDef="let item" > {{item.volumeInfo.pageCount}} </td>
+          <ng-container matColumnDef="Thumbnail">
+              <th mat-header-cell *matHeaderCellDef> Thumbnail </th>
+              <td mat-cell *matCellDef="let item"> 
+                <div>
+                    
+                      
+                      <div *ngIf="item.volumeInfo.imageLinks?.smallThumbnail" >
+                        <img src="{{item.volumeInfo.imageLinks?.smallThumbnail}}" alt="no_img" height="100" width="100" (click)="openDialog(item.volumeInfo.imageLinks?.thumbnail)">
+                      </div>
+                      <div *ngIf="!item.volumeInfo.imageLinks?.smallThumbnail">
+                        <a href="{{item.volumeInfo.previewLink}}">
+                          <img src="./assets/images/noimg.jpeg" alt="no_img" height="100" width="100">
+                        </a>
+                      </div>
+                       
+                </div>
+              </td>
             </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          <tr [@trigger1] mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
+      <button (click)="openDialog()">
+          klik me
+      </button>
   </div> 
 </div>
+

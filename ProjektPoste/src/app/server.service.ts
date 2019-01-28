@@ -59,10 +59,7 @@ export class ServerService {
               console.log(x[1]);
           // -------------------------------------------------------------------- Parametri ter klic http
                this.params = new HttpParams().
-                              //set("q", "intitle:"+ this.searchForm.get("formtitle").value).//+"inauthor:"+'Josip').
-                              // set("q", "intitle:"+ this.searchForm.get("formtitle").value + '+' + "inauthor:"+ this.searchForm.get("formauthor").value).
                               set("q", this.temp4).
-                              // set("q", x).
                               set("maxResults", this.formcount).
                               set("orderBy", this.formorder).
                               set("printType", this.formselect); 
