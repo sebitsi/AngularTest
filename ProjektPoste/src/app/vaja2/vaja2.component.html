@@ -1,0 +1,22 @@
+<div>
+  <div>
+      <mat-form-field>
+          <input #inputName
+            matInput placeholder="Name" 
+            name="addName"
+            id="addName">
+        </mat-form-field>
+      <button mat-raised-button style= "width: 100px; margin-left: 50px" (click)="onAddName(inputName.value)">
+        New
+      </button>
+      <button mat-raised-button style= "width: 100px; margin-left: 50px" (click)="onSave()">
+        Save
+      </button>
+      <hr>
+      <ul *ngFor="let name of names">
+        <li>
+          {{name.name}} (ID: {{name.id}})
+        </li>
+      </ul>
+  </div>
+</div>

@@ -18,13 +18,40 @@ import { MatRadioModule } from '../../node_modules/@angular/material/radio';
 import { MatSelectModule } from '../../node_modules/@angular/material/select';
 import { MatIconModule } from '../../node_modules/@angular/material/icon';
 import { PosteThumbnailComponent } from './poste/poste-thumbnail/poste-thumbnail.component';
+import { RouterModule, Routes } from '@angular/router';
+import { Vaja1Component } from './vaja1/vaja1.component';
+import { Vaja2Component } from './vaja2/vaja2.component'; 
+import { HomeComponent } from './home/home.component';
+import { MatTabsModule } from '@angular/material';
+import { EnaComponent } from './vaja1/ena/ena.component';
+import { DvaComponent } from './vaja1/dva/dva.component'; 
 
+const appRoutes: Routes = [
+  { path: 'home', component: HomeComponent },
+  { path: 'search-knjige', component: PosteComponent },
+  { path: 'vaja-1', component: Vaja1Component, 
+      children: [
+        { path: 'ena', component: EnaComponent },
+        { path: 'dva', component: DvaComponent }
+      ] },
+  { path: 'vaja-2', component: Vaja2Component },
+  { path: '',
+    redirectTo: '/home',
+    pathMatch: 'full' },
+  
+
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     PosteComponent,
-    PosteThumbnailComponent
+    PosteThumbnailComponent,
+    Vaja1Component,
+    Vaja2Component,
+    HomeComponent,
+    EnaComponent,
+    DvaComponent
   ],
   entryComponents: [
     PosteThumbnailComponent
@@ -43,11 +70,21 @@ import { PosteThumbnailComponent } from './poste/poste-thumbnail/poste-thumbnail
     MatSelectModule,
     CdkTableModule,
     A11yModule,
-    MatIconModule,
-    MatDialogModule
+    MatIconModule, 
+    MatDialogModule,
+    RouterModule,
+    MatTabsModule,
+
+    RouterModule.forRoot(appRoutes),
+    
+    
   
+  ],
+  exports: [
+    RouterModule
   ],
   providers: [ServerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

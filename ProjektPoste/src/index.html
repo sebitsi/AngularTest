@@ -10,5 +10,19 @@
 </head>
 <body>
   <app-root></app-root>
+  
+    <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyA92pszL0n1WrCyEFy_v63DDJk3_icY4Ug",
+        authDomain: "my-test-project-c4ce1.firebaseapp.com",
+        databaseURL: "https://my-test-project-c4ce1.firebaseio.com",
+        projectId: "my-test-project-c4ce1",
+        storageBucket: "my-test-project-c4ce1.appspot.com",
+        messagingSenderId: "1078640485733"
+      };
+      firebase.initializeApp(config);
+    </script>
 </body>
 </html>

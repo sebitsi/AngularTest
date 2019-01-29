@@ -1,0 +1,13 @@
+.header {
+    width:100%;
+    height: 50px;
+    padding: 15px;
+    position: fixed; 
+    /* top: 0;  */
+    background-color: lightgray
+}
+
+.active {
+    width: 200px;
+    font: bold;
+}
