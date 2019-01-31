@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ServerService } from '../server.service';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Observable } from 'rxjs';
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreModule, AngularFirestoreCollection } from '@angular/fire/firestore';
 
-declare var firebase: any;
+export interface NewName { name: string, sport: string }
 
 @Component({
   selector: 'app-vaja2',
@@ -10,51 +11,38 @@ declare var firebase: any;
   styleUrls: ['./vaja2.component.css']
 })
 export class Vaja2Component implements OnInit {
-  names = [
-    {
-      name: 'Jan',
-      id: 1,
-    },
-    {
-      name: 'Tomaž',
-      id: 2,
-    }
-  ];
+////////////////////////////////////////////////////////////
+  private itemDoc: AngularFirestoreDocument<NewName>;
+  private itemDoc2: AngularFirestoreCollection<NewName>
+  itemPipe$: Observable<NewName[]>;
+  inputName: string;
+  inputSport: string;
+  sportSelection: string = 'Football';
+  opcije: string[] = ['Football', 'Handball', 'Tennis', 'Waterpolo', 'Table tennis'];
+  displayedColumns: string[] = ['Name', 'Sport'];
 
-  constructor(private ServerService: ServerService) { }
+  constructor(db: AngularFirestore,
+              db2: AngularFirestore) { 
+                // this.itemDoc = db.doc('users/LZh0rDTudzT9KaA7tHFd');
+                // this.itemPipe$ = this.itemDoc.valueChanges();
+                // this.itemDoc2 = db2.collection<NewName>('users', ref => ref.where('sport', '==', this.sportSelection));
+                this.itemDoc2 = db2.collection<NewName>('users', ref => ref.orderBy('sport'));
+                this.itemPipe$ = this.itemDoc2.valueChanges();
+               }
 
-  snapshot: ActivatedRouteSnapshot;
+              update(name: string, sport: string) {
+                const data: NewName = { name, sport};
+                this.itemDoc2.add(data);
+                this.inputName = "";
+                this.inputSport = "";
+                // this.db2.collection('users').doc('this.generateId()').set({ name: nameData, sport: sportData})
+                
+              }
+
   ngOnInit() {
-    this.fbGetData();
-  }
-  // onAddName(nameValue: string){
-  //   this.names.push(
-  //     {
-  //       name: nameValue,
-  //       id: this.generateId()
-  //     }
-  //   );
-  // }
-  // onSave() {
-  //   this.ServerService.storeName(this.names)
-  //     .subscribe(
-  //       (response: any) => {
-  //         const data = response;
-  //         console.log(data);
-  //         // this.najdeno = data.items;
-  //       }
-  //     );
-  // }
+}
 
-  fbGetData(){
-    firebase.database().ref('/users/users/').on('child_added', (snapshot) => {
-      console.log(snapshot)
-    })
-  }
-
-
-  private generateId() {
-    return Math.round(Math.random() * 10000);
-  }
-
+private generateId() {
+  return Math.round(Math.random() * 10000);
+}
 }

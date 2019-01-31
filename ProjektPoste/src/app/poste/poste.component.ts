@@ -6,7 +6,7 @@ import { combineLatest } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { PosteThumbnailComponent } from './poste-thumbnail/poste-thumbnail.component';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-poste',

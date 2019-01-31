@@ -2,10 +2,20 @@
     width:100%;
     height: 50px;
     padding: 15px;
-    position: fixed; 
-    /* top: 0;  */
-    background-color: lightgray
+    opacity: 1;
+    top: 0; 
+    left: 0;
+    background-color: #82beed;
+    display: flex;
+    flex: 0 0 auto;
+    
 }
+.page-content {
+    flex: 1 1 auto;
+    position: relative;/* need this to position inner content */
+    overflow-y: auto;   
+  }
+  
 
 .active {
     width: 200px;

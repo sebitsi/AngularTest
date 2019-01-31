@@ -1,22 +1,59 @@
-<div>
-  <div>
-      <mat-form-field>
-          <input #inputName
-            matInput placeholder="Name" 
-            name="addName"
-            id="addName">
-        </mat-form-field>
-      <button mat-raised-button style= "width: 100px; margin-left: 50px" (click)="onAddName(inputName.value)">
-        New
-      </button>
-      <button mat-raised-button style= "width: 100px; margin-left: 50px" (click)="onSave()">
-        Save
-      </button>
-      <hr>
-      <ul *ngFor="let name of names">
-        <li>
-          {{name.name}} (ID: {{name.id}})
-        </li>
-      </ul>
+<div style="display: flex; flex-direction: column">
+  <!-- HEADER -->
+  <div class="row" style="background-color: cornflowerblue; width: 100%; padding-top: 10px;">
+    <div style="width: 100%">
+      <form cdkTrapFocus>
+        <mat-form-field style="padding-left: 20px">
+            <input 
+              [(ngModel)]="inputName"
+              matInput placeholder="Name" 
+              name="addName"
+              id="addName">
+          </mat-form-field>
+          <mat-form-field style="margin-left: 20px">
+            <input 
+              [(ngModel)]="inputSport"
+              matInput placeholder="Sport" 
+              name="addSport"
+              id="addSport">
+          </mat-form-field>
+          
+        <button type="submit" mat-raised-button style= "width: 30px; margin-left: 20px" (click)="update(inputName, inputSport)">                      
+          Add
+        </button>
+      </form>
+    </div>
+    <div style="display: flex; align-self: flex-end;">  
+      <mat-form-field
+          style=" padding-right: 50px; padding-left: 20px;  padding-top: 10px">
+          <mat-select
+            placeholder="Filter sport"
+            [(ngModel)]="sportSelection"
+            >
+            <mat-option *ngFor="let item of opcije" [value]="item" > 
+              {{item}}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+    </div>
   </div>
+  <!-- TABLE -->
+              <div style="display:flex; margin-left: 20px">
+                  <table style="width: 75%" mat-table [dataSource]="itemPipe$"> 
+                    <ng-container matColumnDef="Name">
+                        <th mat-header-cell  *matHeaderCellDef> Name </th>
+                        <td mat-cell *matCellDef="let item"> 
+                           <b>{{item.name}}</b> 
+                        </td>
+                    </ng-container>
+                    <ng-container  matColumnDef="Sport" >
+                      <th mat-header-cell *matHeaderCellDef> Sport </th>
+                      <td mat-cell *matCellDef="let item">
+                          {{item.sport}}  
+                      </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                </table>
+              </div> 
 </div>

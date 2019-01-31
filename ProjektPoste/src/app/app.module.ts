@@ -25,11 +25,16 @@ import { HomeComponent } from './home/home.component';
 import { MatTabsModule } from '@angular/material';
 import { EnaComponent } from './vaja1/ena/ena.component';
 import { DvaComponent } from './vaja1/dva/dva.component'; 
+import { environment } from '../environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'search-knjige', component: PosteComponent },
-  { path: 'vaja-1', component: Vaja1Component, 
+  { path: 'vaja-1', component: Vaja1Component,  
       children: [
         { path: 'ena', component: EnaComponent },
         { path: 'dva', component: DvaComponent }
@@ -74,7 +79,11 @@ const appRoutes: Routes = [
     MatDialogModule,
     RouterModule,
     MatTabsModule,
-
+    AngularFireModule.initializeApp(environment.firebase, 'my-app-name'),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule,
+    ////////////////////////////////////////////
     RouterModule.forRoot(appRoutes),
     
     
