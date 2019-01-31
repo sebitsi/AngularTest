@@ -67,7 +67,4 @@ export class ServerService {
                return this.http.get('https://www.googleapis.com/books/v1/volumes', {params: this.params});
         //  return this.http.get('http://192.168.200.203:5000/api/services/core/RTE/GetPosta');
      }
-  // storeName(names: any[]) {
-  //   return this.http.post('https://my-test-project-c4ce1.firebaseio.com/data.json ', names);
-  // }
 }
