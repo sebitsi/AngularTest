@@ -24,22 +24,8 @@ import { MatDialog } from '@angular/material';
           transform: 'translateX(-300px)'
         }),
         animate(500)
-      ])
-      // state('highlighted', style({
-      //   'background-color': 'rgba(255, 0, 0, 0.1)',
-      //   opacity: 0.3
-      // })
-      
+      ])    
     ])
-    // trigger('trigger1', [
-    //   state('normal', style({
-    //     'background-color': 'white'
-    //   })), 
-    //   state('highlighted', style({
-    //     'background-color': 'rgba(255, 0, 0, 0.1)',
-    //     opacity: 0.3
-    //   }))
-    // ])
   ]
 })
 
