@@ -30,6 +30,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { MatCardModule } from '@angular/material/card';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -85,6 +86,7 @@ const appRoutes: Routes = [
     AngularFireStorageModule,
     ////////////////////////////////////////////
     RouterModule.forRoot(appRoutes),
+    MatCardModule
     
     
   
