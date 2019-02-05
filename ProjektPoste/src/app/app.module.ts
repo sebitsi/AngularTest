@@ -88,7 +88,6 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     MatCardModule
     
-    
   
   ],
   exports: [

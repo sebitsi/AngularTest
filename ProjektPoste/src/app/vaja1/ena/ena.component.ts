@@ -25,6 +25,7 @@ export class EnaComponent implements OnInit {
   catName: string;
   catDesc: string;
   startQuery: number;
+  buttonDisable: boolean;
   endQuery: number;
   // catPipe$: Observable<NewCat[]>;
   catPipe$: Observable<CatZapis[]>;
@@ -33,12 +34,11 @@ export class EnaComponent implements OnInit {
 
   constructor(private dbStorage: AngularFireStorage,
               private db: AngularFirestore) {
-                this.startQuery = 3;
-                this.endQuery = 5;
-                this.catCol = this.db.collection<NewCat>('cats', ref => ref.orderBy('name').startAt(this.startQuery)//.endAt(this.endQuery)   // ????? 
+                this.buttonDisable = true;
+                this.catCol = this.db.collection<NewCat>('cats', ref => ref.orderBy('name').endAt('E') //startAt(this.startQuery)//.endAt(this.endQuery)   // ????? 
                 );
-                        // private catCol = db.collection<NewCat>('cats');
-                        // this.catPipe$ = catCol.valueChanges();
+                                              // private catCol = db.collection<NewCat>('cats');
+                                              // this.catPipe$ = catCol.valueChanges();
                 this.catPipe$ = this.catCol.snapshotChanges().pipe(
                   map(actions => {
                     return actions.map(a => {
@@ -48,7 +48,7 @@ export class EnaComponent implements OnInit {
                     })
                   })
                 )
-              // this.catPipe$
+              
                  
 
   }
@@ -57,8 +57,11 @@ export class EnaComponent implements OnInit {
     // this.catPipe$ = this.catCol.valueChanges();
   }
 
+
+
   storeEvent($event) {
     this.imgEvent = $event;
+    this.buttonDisable = false;
   }
   upload(catName, catDesc) {
     const id = Math.random().toString(36).substring(2);
@@ -68,10 +71,10 @@ export class EnaComponent implements OnInit {
     this.uploadProgress = this.task.percentageChanges();
     this.task.then(
        x => { this.downloadURL = this.ref.getDownloadURL();
-        this.downloadURL.subscribe(x => {
-          this.uploadFirestore(catName, catDesc, x)
-        });
-        this.uploadState = null;
+              this.downloadURL.subscribe(x => {
+                  this.uploadFirestore(catName, catDesc, x)
+                   });
+               this.uploadState = null;
                    }
     )
   }
@@ -80,10 +83,90 @@ export class EnaComponent implements OnInit {
     const data: NewCat = { name, description, imgUrl };
     console.log(data);
     this.catCol.add(data); 
+    this.buttonDisable = true;
   }
   deleteCat(item: CatZapis){
     console.log(item);  
     this.catDoc = this.db.doc(`cats/${item.dataId}`);
     this.catDoc.delete();
   }
+
+
+
+
+
+
+
+
+
+  /////////////////////////////
+  sortAD() {
+    this.catCol = this.db.collection<NewCat>('cats', ref => ref.orderBy('name').endAt('E'));
+    this.catPipe$ = this.catCol.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as NewCat;
+          const dataId = a.payload.doc.id;
+          return { dataId, data};
+        })
+      })
+    )
+  }
+  sortEI() {
+    this.catCol = this.db.collection<NewCat>('cats', ref => ref.orderBy('name').startAt('E').endAt('J'));
+    this.catPipe$ = this.catCol.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as NewCat;
+          const dataId = a.payload.doc.id;
+          return { dataId, data};
+        })
+      })
+    )
+  }
+  sortJN() {
+    this.catCol = this.db.collection<NewCat>('cats', ref => ref.orderBy('name').startAt('J').endAt('O'));
+    this.catPipe$ = this.catCol.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as NewCat;
+          const dataId = a.payload.doc.id;
+          return { dataId, data};
+        })
+      })
+    )
+  }
+  sortOS() {
+    this.catCol = this.db.collection<NewCat>('cats', ref => ref.orderBy('name').startAt('O').endAt('T'));
+    this.catPipe$ = this.catCol.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as NewCat;
+          const dataId = a.payload.doc.id;
+          return { dataId, data};
+        })
+      })
+    )
+  }
+  sortTZ() {
+    this.catCol = this.db.collection<NewCat>('cats', ref => ref.orderBy('name').startAt('T'));
+    this.catPipe$ = this.catCol.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as NewCat;
+          const dataId = a.payload.doc.id;
+          return { dataId, data};
+        })
+      })
+    )
+  }
 }
+
+
+
+
+
+
+
+
+
