@@ -30,6 +30,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireFunctionsModule, FunctionsRegionToken } from '@angular/fire/functions';
 import { MatCardModule } from '@angular/material/card';
 
 const appRoutes: Routes = [
@@ -84,16 +85,19 @@ const appRoutes: Routes = [
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
+    AngularFireFunctionsModule,
     ////////////////////////////////////////////
     RouterModule.forRoot(appRoutes),
-    MatCardModule
+    MatCardModule,
+    
     
   
   ],
   exports: [
     RouterModule
   ],
-  providers: [ServerService],
+  providers: [ServerService,
+              { provide: FunctionsRegionToken, useValue: 'us-central1' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
