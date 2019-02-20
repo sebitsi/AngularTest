@@ -27,7 +27,7 @@ steps:
 - task: PublishBuildArtifacts@1
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    artifactName: drop
+    artifactName: drop/dist
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Firebase.json'
@@ -39,8 +39,8 @@ steps:
   inputs:
     PathtoPublish: ProjektPoste/deploy.ps1
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Build'
-  inputs:
-    PathtoPublish: ProjektPoste/dist
+# - task: PublishBuildArtifacts@1
+#   displayName: 'Publish Build'
+#   inputs:
+#     PathtoPublish: ProjektPoste/dist
 #     ArtifactName: drop/dist
