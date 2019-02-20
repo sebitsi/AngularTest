@@ -43,4 +43,4 @@ steps:
   displayName: 'Publish Build'
   inputs:
     PathtoPublish: ProjektPoste/dist
-    ArtifactName: drop/dist
+#     ArtifactName: drop/dist
