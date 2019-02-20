@@ -39,8 +39,8 @@ steps:
   inputs:
     PathtoPublish: ProjektPoste/deploy.ps1
 
-# - task: PublishBuildArtifacts@1
-#   displayName: 'Publish Build'
-#   inputs:
-#     PathtoPublish: ProjektPoste/dist
-#     ArtifactName: drop/dist
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Build'
+  inputs:
+    PathtoPublish: ProjektPoste/dist
+    ArtifactName: drop/dist
