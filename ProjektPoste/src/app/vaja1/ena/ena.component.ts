@@ -26,6 +26,7 @@ export class EnaComponent implements OnInit {
   catDesc: string;
   startQuery: number;
   buttonDisable: boolean;
+  krNekiTest: string;
   endQuery: number;
   // catPipe$: Observable<NewCat[]>;
   catPipe$: Observable<CatZapis[]>;
@@ -55,6 +56,7 @@ export class EnaComponent implements OnInit {
 
   ngOnInit() {
     // this.catPipe$ = this.catCol.valueChanges();
+    this.krNekiTest = 'test';
   }
 
 
