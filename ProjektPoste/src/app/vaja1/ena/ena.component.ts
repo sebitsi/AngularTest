@@ -160,6 +160,10 @@ export class EnaComponent implements OnInit {
       })
     )
   }
+
+  cancelFile() {
+    this.buttonDisable = true;
+  }
 }
 
 
