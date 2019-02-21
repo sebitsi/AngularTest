@@ -1,0 +1,60 @@
+# Node.js with Angular
+# Build a Node.js project that uses Angular.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- master
+
+pool:
+  vmImage: 'Ubuntu-16.04'
+  # vmImage: 'Hosted VS2017'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '8.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install -g @angular/cli
+    cd ./ProjektPoste
+    npm install
+    ng build --prod
+  displayName: 'npm install, build and test'
+
+- powershell: gci env:* | sort-object name | Format-Table -AutoSize | Out-File $env:BUILD_ARTIFACTSTAGINGDIRECTORY/environment-variables.txt
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: drop
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Firebase.json'
+  inputs:
+    PathtoPublish: ProjektPoste/firebase.json
+    ArtifactName: drop
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish deploy ps1'
+  inputs:
+    PathtoPublish: ProjektPoste/deploy.ps1
+    ArtifactName: drop
+
+
+# - task: CopyFiles@2
+#   inputs:
+#     contents: '_buildOutput\ProjektPoste\dist\**'
+#     targetFolder: $(Build.ArtifactStagingDirectory)
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Build'
+  inputs:
+    PathtoPublish: ProjektPoste/dist
+    ArtifactName: drop
+    publishLocation: FilePath
+    TargetPath: dist
+    
+    
+            # tu odstranimo drop in zgoraj odstranimo dist
