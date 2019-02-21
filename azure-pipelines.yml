@@ -39,10 +39,16 @@ steps:
   inputs:
     PathtoPublish: ProjektPoste/deploy.ps1
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Build'
+
+- task: CopyFiles@2
   inputs:
-    PathtoPublish: ProjektPoste/dist
-    publishLocation: FilePath
-    TargetPath: drop/dist
-    # ArtifactName: drop/dist
+    contents: '_buildOutput\ProjektPoste\dist\**'
+    targetFolder: $(Build.ArtifactStagingDirectory)
+
+# - task: PublishBuildArtifacts@1
+#   displayName: 'Publish Build'
+#   inputs:
+#     PathtoPublish: ProjektPoste/dist
+#     # publishLocation: FilePath
+#     # TargetPath: drop/dist
+#     # ArtifactName: drop/dist
