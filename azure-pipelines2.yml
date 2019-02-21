@@ -41,8 +41,8 @@ steps:
   inputs:
     PathtoPublish: ProjektPoste/src/assets/images/noimg.jpeg
     ArtifactName: drop
-    publishLocation: FilePath
-    TargetPath: src/assets/images
+    # publishLocation: FilePath
+    # TargetPath: src/assets/images
 
 
 # - task: CopyFiles@2
