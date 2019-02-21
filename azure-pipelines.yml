@@ -51,7 +51,9 @@ steps:
   displayName: 'Publish Build'
   inputs:
     PathtoPublish: ProjektPoste/dist
-    ArtifactName: drop/dist
-
-#     # publishLocation: FilePath
-#     # TargetPath: drop/dist
+    ArtifactName: drop
+    publishLocation: FilePath
+    TargetPath: dist
+    
+    
+            # tu odstranimo drop in zgoraj odstranimo dist
