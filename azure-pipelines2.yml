@@ -7,8 +7,8 @@ trigger:
 - master
 
 pool:
-  vmImage: 'Ubuntu-16.04'
-  # vmImage: 'Hosted VS2017'
+  # vmImage: 'Ubuntu-16.04'
+  vmImage: 'Hosted VS2017'
 
 steps:
 - task: NodeTool@0
@@ -16,12 +16,12 @@ steps:
     versionSpec: '8.x'
   displayName: 'Install Node.js'
 
-- script: |
-    npm install -g @angular/cli
-    cd ./ProjektPoste
-    npm install
-    ng build --prod
-  displayName: 'npm install, build and test'
+# - script: |
+#     npm install -g @angular/cli
+#     cd ./ProjektPoste
+#     npm install
+#     ng build --prod
+#   displayName: 'npm install and build'
 
 - powershell: gci env:* | sort-object name | Format-Table -AutoSize | Out-File $env:BUILD_ARTIFACTSTAGINGDIRECTORY/environment-variables.txt
 
@@ -33,13 +33,13 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Firebase.json'
   inputs:
-    PathtoPublish: ProjektPoste/firebase.json
+    PathtoPublish: ProjektPoste/angular.json
     ArtifactName: drop
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish deploy ps1'
   inputs:
-    PathtoPublish: ProjektPoste/deploy.ps1
+    PathtoPublish: ProjektPoste/src/assets/images/noimg.jpeg
     ArtifactName: drop
 
 
@@ -48,13 +48,13 @@ steps:
 #     contents: '_buildOutput\ProjektPoste\dist\**'
 #     targetFolder: $(Build.ArtifactStagingDirectory)
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Build'
-  inputs:
-    PathtoPublish: ProjektPoste/dist
-    ArtifactName: drop
-    publishLocation: FilePath
-    TargetPath: dist
+# - task: PublishBuildArtifacts@1
+#   displayName: 'Publish Build'
+#   inputs:
+#     PathtoPublish: ProjektPoste/dist
+#     ArtifactName: drop
+#     publishLocation: FilePath
+#     TargetPath: dist
     
     
             # tu odstranimo drop in zgoraj odstranimo dist
