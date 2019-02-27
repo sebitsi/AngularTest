@@ -9,12 +9,9 @@ import { Observable } from 'rxjs';
 })
 export class DvaComponent implements OnInit {
 
-data$: Observable<string>;
 
-  constructor(private fns: AngularFireFunctions) { 
-    // const cors = require('cors')({origin: true});
-    const callable = fns.httpsCallable('helloWorld');
-    this.data$ = callable({ name: 'Jan'});
+
+  constructor() { 
   }
 
   ngOnInit() {
