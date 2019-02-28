@@ -14,9 +14,23 @@ Agent Job naj bo linux, saj so v primeru Windows bile neke komplikacije.
 
 ### 'Release' faza
 Nato skočimo v 'Releases' zavihek, kjer ustvarimo nov release in kot artifact določimo ta build. V proženju lahko izberemo, ali se release izvaja ročno ali avtomatsko po uspešno končanem buildu.
-Tam z Command prompt taskom pokličemo .yaml datoteko, ki jo imamo že pripravljeno v GitHubu. To naredimo z 'kubectl apply -f (pot datoteke). 
-Da bo naš image up to date nato uporabimo še ukaz 'kubectl set', v katerem popravimo image na $(Build.BuildId), katerega tudi uporabimo pri 'Docker tag' v tretjem koraku (glej gor).
+Tam z Command prompt taskom pokličemo .yaml datoteko, ki jo imamo že pripravljeno v GitHubu. To naredimo z *'kubectl apply -f (pot datoteke)'*'. 
+Da bo naš image up to date nato uporabimo še ukaz *'kubectl set'*, v katerem popravimo image na $(Build.BuildId), katerega tudi uporabimo pri 'Docker tag' v tretjem koraku (glej gor).
 
 V našem .yaml filu moramo definirati vsaj deployment in service. Pri service pazimo, da je target port takšen, kot ga zahteva nek servis, ki ga uporabljamo v image (npr. 80), in določimo navaden port na poljubno število. Tip nastavimo na 'LoadBalancer'. 
 
-(to je le osnutek)
+Na Kubernetes dashboardu bi sedaj morali videti naš deployment in toliko podov, kolikor smo jih definirali. Servis bi moral biti z statusom 'pending' za kratek čas, preden se mu dodeli External IP in je aplikacija dosegljiva.
+
+#### Kubernetes (kubectl) ukazi
+Kubernetes nam ponuja dostop poleg dashboarda tudi v command promptu, kjer ima vedno pripono '**kubectl**'. 
+- ##### Yaml
+  Za poganjanje naših .yaml datotek, ki definirajo različne stvari v Kubernetesu uporabljamo:
+  1. *kubectl create -f (datoteka)*
+  2. *kubectl apply -f (datoteka)*
+
+- ##### Ogled storitev
+  Če si hočemo ogledati listo storitev katerega tipa ali pa le eno v podrobnosti, uporabimo:
+  1. *kubectl get (deployments, services, pods, persistentVolumes, itd.) (ime_storitve(ni obvezno))*
+  2. *kubectl describe (deployment, service, pod, itd.) (ime_storitve(ni obvezno))*
+
+(work in progress)
