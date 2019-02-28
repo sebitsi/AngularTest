@@ -30,9 +30,12 @@ Kubernetes nam ponuja dostop poleg dashboarda tudi v command promptu, kjer ima v
   1. *kubectl create -f (datoteka)*
   2. *kubectl apply -f (datoteka)*
 
+  'Create' uporabljamo le, kadar ne nameravamo storitve v prihodnosti nikoli spreminjati - če hočemo spremenljivo verzijo, ga vedno ustvarimo kar z 'apply'.
 - ##### Ogled storitev
   Če si hočemo ogledati listo storitev katerega tipa ali pa le eno v podrobnosti, uporabimo:
   1. *kubectl get (deployments, services, pods, persistentVolumes, itd.) (ime_storitve(ni obvezno))*
   2. *kubectl describe (deployment, service, pod, itd.) (ime_storitve(ni obvezno))*
 
 (work in progress)
+
+
