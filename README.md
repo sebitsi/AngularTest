@@ -15,7 +15,9 @@ Agent Job naj bo linux, saj so v primeru Windows bile neke komplikacije.
 ### 'Release' faza
 Nato skočimo v 'Releases' zavihek, kjer ustvarimo nov release in kot artifact določimo ta build. V proženju lahko izberemo, ali se release izvaja ročno ali avtomatsko po uspešno končanem buildu.
 Tam z Command prompt taskom pokličemo .yaml datoteko, ki jo imamo že pripravljeno v GitHubu. To naredimo z *'kubectl apply -f (pot datoteke)'*'. 
-Da bo naš image up to date nato uporabimo še ukaz *'kubectl set'*, v katerem popravimo image na $(Build.BuildId), katerega tudi uporabimo pri 'Docker tag' v tretjem koraku (glej gor).
+Da bo naš image up to date nato uporabimo še ukaz *'kubectl set'*, v katerem popravimo image na $(Build.BuildId), katerega tudi uporabimo pri 'Docker tag' v tretjem koraku (glej gor). Taska sta torej:
+1. *kubectl apply -f (ime)*
+2. *kubectl set deployment (ime) --image (image-name)*
 
 V našem .yaml filu moramo definirati vsaj deployment in service. Pri service pazimo, da je target port takšen, kot ga zahteva nek servis, ki ga uporabljamo v image (npr. 80), in določimo navaden port na poljubno število. Tip nastavimo na 'LoadBalancer'. 
 
