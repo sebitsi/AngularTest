@@ -19,7 +19,7 @@ Da bo naš image up to date nato uporabimo še ukaz *'kubectl set'*, v katerem p
 1. *kubectl apply -f (ime)*
 2. *kubectl set deployment (ime) --image (image-name)*
 
-V našem .yaml filu moramo definirati vsaj deployment in service. Pri service pazimo, da je target port takšen, kot ga zahteva nek servis, ki ga uporabljamo v image (npr. 80), in določimo navaden port na poljubno število. Tip nastavimo na 'LoadBalancer'. 
+V našem .yaml filu moramo definirati vsaj deployment in service. Pri service pazimo, da je target port takšen, kot ga zahteva nek servis, ki ga uporabljamo v image (npr. 80), in določimo navaden port na poljubno število. Tip nastavimo na 'LoadBalancer'. [Navodila so tukaj.](https://blog.jreypo.io/containers/microsoft/azure/cloud/cloud-native/how-to-expose-your-kubernetes-workloads-on-azure/)
 
 Na Kubernetes dashboardu bi sedaj morali videti naš deployment in toliko podov, kolikor smo jih definirali. Servis bi moral biti z statusom 'pending' za kratek čas, preden se mu dodeli External IP in je aplikacija dosegljiva.
 
