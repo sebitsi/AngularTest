@@ -21,6 +21,8 @@ Pri vseh docker taskih potrebujemo delujoč service connection.
 
 Agent Job naj bo linux, saj so v primeru Windows bile neke komplikacije.
 
+![Build slika](https://i.imgur.com/4UP3vvW.png)
+
 ### 'Release' faza
 Nato skočimo v 'Releases' zavihek, kjer ustvarimo nov release in kot artifact določimo ta build. V proženju lahko izberemo, ali se release izvaja ročno ali avtomatsko po uspešno končanem buildu.
 Pri release imamo dva načina postavitve storitve:
@@ -29,6 +31,8 @@ Pri release imamo dva načina postavitve storitve:
    Pri 'run' so argumenti takšni:
    - $(Release.ReleaseId) --image=janp110191/jan-repo:$(Build.BuildId) --port=80
    - Pri **expose** pa: deployment $(Release.ReleaseId) --name=service-$(Release.ReleaseId) --type=LoadBalancer --port=3000 --target-port=80
+
+![Build slika](https://i.imgur.com/NDnZjIH.png)
 
 2. **YAML navodili**
   S tem primerom naredimo enako '*Deploy to Kubernetes*' task, v katerem uporabimo '**apply**'. Tam kličemo našo YAML datoteko, ki bi jo vključili v naš GitHub repozitorij. (YAML mora vsebovati navodila za deployment in service tipa LoadBalancer)
@@ -53,16 +57,7 @@ Kubernetes nam ponuja dostop poleg dashboarda tudi v command promptu, kjer ima v
   2. *kubectl describe (deployment, service, pod, itd.) (ime_storitve(ni obvezno))*
   3. *kubectl run (za ročno ustvarjanje deploymentov in drugi storitev*)
 
-(work in progress)
-
-
-
-  'Create' uporabljamo le, kadar ne nameravamo storitve v prihodnosti nikoli spreminjati - če hočemo spremenljivo verzijo, ga vedno ustvarimo kar z 'apply'.
-- ##### Ogled storitev
-  Če si hočemo ogledati listo storitev katerega tipa ali pa le eno v podrobnosti, uporabimo:
-  1. *kubectl get (deployments, services, pods, persistentVolumes, itd.) (ime_storitve(ni obvezno))*
-  2. *kubectl describe (deployment, service, pod, itd.) (ime_storitve(ni obvezno))*
-
-(work in progress)
-
+#### Viri:
+  - [Video z podobnimi koraki](https://www.youtube.com/watch?v=K4uNl6JA7g8)
+  - [Blog z navodili (na koncu vključuje Helm)](https://medium.com/@timfpark/application-ci-cd-on-kubernetes-with-visual-studio-team-services-ccacecdea8a5)
 
