@@ -63,4 +63,4 @@ Kubernetes nam ponuja dostop poleg dashboarda tudi v command promptu, kjer ima v
 
 
 
-![Slika deploy](./pic1.png)
+![Slika deploy](pic1.png)
