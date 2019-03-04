@@ -71,6 +71,7 @@ Kreiranje servisa za nek deployment:
 ![Slika deploy](https://github.com/Jan563/AngularTest/blob/master/volume1.PNG)
 
 Kot se vidi na sliki, potrebujemo za persistent volume deployment, Persistent Volume claim zanj, Storage Class, Persistent volume sam in pa secret.
+Postopek je bolje opisan [na tem linku](https://pascalnaber.wordpress.com/2018/01/26/persistent-storage-and-volumes-using-kubernetes-on-azure-with-aks-or-azure-container-service/)*(pod 'Static Persistent Volume')*
 
 #### Viri:
   - [Video z podobnimi koraki](https://www.youtube.com/watch?v=K4uNl6JA7g8)
