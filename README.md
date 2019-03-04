@@ -59,12 +59,15 @@ Kubernetes nam ponuja dostop poleg dashboarda tudi v command promptu, kjer ima v
 
 #### YAML
 Kreiranje osnovnega deploymenta:
+
 ![Slika deploy](https://github.com/Jan563/AngularTest/blob/master/pic3.PNG)
 
-Kreiranje servisa za nek deployment
+Kreiranje servisa za nek deployment:
+
 ![Slika deploy](https://github.com/Jan563/AngularTest/blob/master/pic4.PNG)
 
 **Persistent volumes**
+
 ![Slika deploy](https://github.com/Jan563/AngularTest/blob/master/volume1.PNG)
 
 Kot se vidi na sliki, potrebujemo za persistent volume deployment, Persistent Volume claim zanj, Storage Class, Persistent volume sam in pa secret.
