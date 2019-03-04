@@ -1,25 +1,41 @@
 # Navodila za postavitev
 
 V prvi fazi je potrebno v Azure postaviti Kubernetes service, ki nam omogoča izvajanje kubernetes komand v 'cmd' prompt ter vpogled v dashboard z navodili, ki so na njihovi strani.
-
+Za testiranje napišemo v command prompt 'kubectl'.
 ### 'Build' faza
-Nato se povežemo na Azure DevOps, kjer najdemo zavihek Pipelines. Pod zavihkom 'builds' se prvo povežemo na naš GitHub repozitorij in določimo tip proženja (ob vsaki spremembi, ročno). Nato pod prvim in edinim Agent Job začnemo nizati taske:
-1. Node (Inštalacija poljubne verzije Node.js)
-2. Docker login
-3. Docker build (Naša mapa, ki jo z Gita vlečemo, naj ima Dockerfile, v katerem je določeno katere datoteke se vključijo v naš build.)
-4. Docker tag (Verzija ali ime imaga (v1, 150, prva-verzija, itd.)
-5. Docker push (Upload v določen repozitorij. Login je potreben za to fazo.)
+Nato se povežemo na Azure DevOps, kjer najdemo zavihek Pipelines. Pod zavihkom 'builds' se prvo povežemo na naš GitHub repozitorij in določimo tip proženja (ob vsaki spremembi, ročno). Agent pool naj bo tipa **Hosted Ubuntu**. Nato pod prvim in edinim Agent Job začnemo nizati taske:
+1. **Use Node 8.x** (Inštalacija poljubne verzije Node.js)
+2. **Command line** (V njem naredimo production build, torej:)
+      - *npm install -g @angular/cli
+        cd ./ProjektPoste
+        npm install
+        ng build --prod
+        echo Production build finished!*
+2. **Docker login** (Pri čemer naredimo service connection
+   Primer Image name: *janp110191/jan-repo:$(Build.BuildId)*)
+3. **Docker build** (Naša mapa, ki jo z Gita vlečemo, naj ima Dockerfile, v katerem je določeno katere datoteke se vključijo v naš build.)
+4. **Docker tag** (Kopiramo Image name iz Docker build taska)
+5. **Docker push** (Upload v določen repozitorij. Login je potreben za to fazo. Kopiramo zopet Image name od zgoraj.)
+
+Pri vseh docker taskih potrebujemo delujoč service connection.
 
 Agent Job naj bo linux, saj so v primeru Windows bile neke komplikacije.
 
 ### 'Release' faza
 Nato skočimo v 'Releases' zavihek, kjer ustvarimo nov release in kot artifact določimo ta build. V proženju lahko izberemo, ali se release izvaja ročno ali avtomatsko po uspešno končanem buildu.
-Tam z Command prompt taskom pokličemo .yaml datoteko, ki jo imamo že pripravljeno v GitHubu. To naredimo z *'kubectl apply -f (pot datoteke)'*'. 
-Da bo naš image up to date nato uporabimo še ukaz *'kubectl set'*, v katerem popravimo image na $(Build.BuildId), katerega tudi uporabimo pri 'Docker tag' v tretjem koraku (glej gor). Taska sta torej:
-1. *kubectl apply -f (ime)*
-2. *kubectl set deployment (ime) --image (image-name)*
+Pri release imamo dva načina postavitve storitve:
+1. **Tekstovni ukazi**
+   S tem primerom postavimo Kubernetesu argumenete kar v command line. Naredimo dva **'Deploy to Kubernetes'** tasks na Agent jobu, pri čemer je prvi **run** in drugi **expose**. Task naredi '*kubectl run/expose*' del, mi pa ostalo v Arguments.
+   Pri 'run' so argumenti takšni:
+   - $(Release.ReleaseId) --image=janp110191/jan-repo:$(Build.BuildId) --port=80
+   - Pri **expose** pa: deployment $(Release.ReleaseId) --name=service-$(Release.ReleaseId) --type=LoadBalancer --port=3000 --target-port=80
 
-V našem .yaml filu moramo definirati vsaj deployment in service. Pri service pazimo, da je target port takšen, kot ga zahteva nek servis, ki ga uporabljamo v image (npr. 80), in določimo navaden port na poljubno število. Tip nastavimo na 'LoadBalancer'. [Navodila so tukaj.](https://blog.jreypo.io/containers/microsoft/azure/cloud/cloud-native/how-to-expose-your-kubernetes-workloads-on-azure/)
+2. **YAML navodili**
+  S tem primerom naredimo enako '*Deploy to Kubernetes*' task, v katerem uporabimo '**apply**'. Tam kličemo našo YAML datoteko, ki bi jo vključili v naš GitHub repozitorij. (YAML mora vsebovati navodila za deployment in service tipa LoadBalancer)
+  Ker YAML ne dopušča dinamičnih zunanjih spremenljivk, z še enim '**set**' taskom popravimo image na najnoveji:
+   - kubectl set deployment (ime) --image janp110191/jan-repo:$(Build.BuildId)
+ 
+V obeh primerih pazimo, da so porti pravilno konfigurirani glede na image, ki ga uporabljamo. Servis pa mora biti tipa '*LoadBalancer*' [Dodatna navodila so tu.](https://blog.jreypo.io/containers/microsoft/azure/cloud/cloud-native/how-to-expose-your-kubernetes-workloads-on-azure/)
 
 Na Kubernetes dashboardu bi sedaj morali videti naš deployment in toliko podov, kolikor smo jih definirali. Servis bi moral biti z statusom 'pending' za kratek čas, preden se mu dodeli External IP in je aplikacija dosegljiva.
 
@@ -29,6 +45,17 @@ Kubernetes nam ponuja dostop poleg dashboarda tudi v command promptu, kjer ima v
   Za poganjanje naših .yaml datotek, ki definirajo različne stvari v Kubernetesu uporabljamo:
   1. *kubectl create -f (datoteka)*
   2. *kubectl apply -f (datoteka)*
+
+  'Create' uporabljamo le, kadar ne nameravamo storitve v prihodnosti nikoli spreminjati - če hočemo spremenljivo verzijo, ga vedno ustvarimo kar z 'apply'.
+- ##### Ogled storitev
+  Če si hočemo ogledati listo storitev katerega tipa ali pa le eno v podrobnosti, uporabimo:
+  1. *kubectl get (deployments, services, pods, persistentVolumes, itd.) (ime_storitve(ni obvezno))*
+  2. *kubectl describe (deployment, service, pod, itd.) (ime_storitve(ni obvezno))*
+  3. *kubectl run (za ročno ustvarjanje deploymentov in drugi storitev*)
+
+(work in progress)
+
+
 
   'Create' uporabljamo le, kadar ne nameravamo storitve v prihodnosti nikoli spreminjati - če hočemo spremenljivo verzijo, ga vedno ustvarimo kar z 'apply'.
 - ##### Ogled storitev
