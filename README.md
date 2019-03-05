@@ -80,4 +80,4 @@ Postopek je bolje opisan [na tem linku](https://pascalnaber.wordpress.com/2018/0
   - [Blog z navodili (na koncu vključuje Helm)](https://medium.com/@timfpark/application-ci-cd-on-kubernetes-with-visual-studio-team-services-ccacecdea8a5)
   
   
-  [Test link](/ProjektPoste/test.html)
+  [Test link](/ProjektPoste/src/test.html)
