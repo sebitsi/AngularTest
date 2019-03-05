@@ -1,3 +1,5 @@
+{body|s}
+
 # Navodila za postavitev
 
 V prvi fazi je potrebno v Azure postaviti Kubernetes service, ki nam omogoča izvajanje kubernetes komand v 'cmd' prompt ter vpogled v dashboard z navodili, ki so na njihovi strani.
