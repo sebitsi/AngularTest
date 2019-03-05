@@ -81,3 +81,10 @@ Postopek je bolje opisan [na tem linku](https://pascalnaber.wordpress.com/2018/0
   
   
   [Test link](/ProjektPoste/src/test.html)
+
+
+  [Test link 2](/ProjektPoste/test.md)
+  
+  [Test link 3](/ProjektPoste/src/test.md)
+  
+  [Test link 4](/ProjektPoste/test.html)
