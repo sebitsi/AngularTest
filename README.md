@@ -76,3 +76,6 @@ Postopek je bolje opisan [na tem linku](https://pascalnaber.wordpress.com/2018/0
 #### Viri:
   - [Video z podobnimi koraki](https://www.youtube.com/watch?v=K4uNl6JA7g8)
   - [Blog z navodili (na koncu vključuje Helm)](https://medium.com/@timfpark/application-ci-cd-on-kubernetes-with-visual-studio-team-services-ccacecdea8a5)
+  
+  
+  [Test link](/ProjektPoste/test.md)
