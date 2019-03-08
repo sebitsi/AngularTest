@@ -2,6 +2,7 @@ param (
     [string]$imageIdName = "275"
  )
  
+dir
 
 Write-Host $Env:AGENT_WORKFOLDER
 Write-Host $Env:AGENT_BUILDDIRECTORY
