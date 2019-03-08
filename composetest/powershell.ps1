@@ -13,7 +13,8 @@ Write-Host $Env:SYSTEM_DEFAULTWORKINGDIRECTORY
 Write-Host $Env:BUILD_SOURCESDIRECTORY
 Write-Host $Env:BUILD_DEFINITIONNAME
 
-cd \_containertest\drop
+cd\
+cd C:\agent\_work\r2\a\_containertest\drop
 
 $Env:APP_IMAGE = "$imageIdName"
 
