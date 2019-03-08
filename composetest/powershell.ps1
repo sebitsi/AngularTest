@@ -1,5 +1,5 @@
 
-$Env:APP_IMAGE = "$(Build.BuildId)"
+$Env:APP_IMAGE = "$imageIdName"
 
 docker-compose up -d
 
