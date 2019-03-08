@@ -1,0 +1,6 @@
+version: '3'
+services:
+  test:
+    image: janp110191/jan-repo:${APP_IMAGE}
+    ports:
+      - "3015:80"
