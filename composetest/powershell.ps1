@@ -1,6 +1,6 @@
 param (
     [string]$imageIdName = "275"
-    [string]$artifactPath
+    [string]$artifactPath = "_containertest/drop/"
  )
  
 dir
