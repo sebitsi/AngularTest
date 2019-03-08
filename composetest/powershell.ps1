@@ -4,7 +4,7 @@ param (
  
 cd\
 
-cd \agent\_work\r2\a\_container-test\drop
+cd \agent\_work\r2\a\_containertest\drop
 Write-Host $Env:AGENT_WORKFOLDER
 Write-Host $Env:AGENT_BUILDDIRECTORY
 Write-Host $Env:AGENT_ID
