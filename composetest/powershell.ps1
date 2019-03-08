@@ -1,5 +1,6 @@
 param (
     [string]$imageIdName = "275"
+    [string]$artifactPath
  )
  
 dir
@@ -19,7 +20,7 @@ Write-Host $Env:BUILD_REPOSITORYNAME
 
 
 cd\
-cd $Env:SYSTEM_DEFAULTWORKINGDIRECTORY\_containertest\drop
+cd $Env:SYSTEM_DEFAULTWORKINGDIRECTORY\$imageIdName
 
 $Env:APP_IMAGE = "$imageIdName"
 
