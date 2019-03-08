@@ -1,6 +1,3 @@
-cd\
-
-cd /composetest
 
 $Env:APP_IMAGE = "$(Build.BuildId)"
 
