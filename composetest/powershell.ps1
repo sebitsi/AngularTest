@@ -1,12 +1,14 @@
 param (
     [string]$imageIdName = "275",
     [string]$artifactPath = "_containertest/drop/",
-    [string]$artifact = "nic"
+    [string]$artifact = "nic",
+    [string]$test1 = "nic2"
  )
  
 dir
 
 Write-Host $artifact
+Write-Host $test1
 Write-Host $Env:AGENT_WORKFOLDER
 Write-Host $Env:AGENT_BUILDDIRECTORY
 Write-Host $Env:AGENT_ID
