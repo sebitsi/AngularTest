@@ -1,5 +1,5 @@
 param (
-    [string]$imageIdName = "275"
+    [string]$imageIdName = "275",
     [string]$artifactPath = "_containertest/drop/"
  )
  
