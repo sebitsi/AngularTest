@@ -3,7 +3,9 @@ param (
     [string]$artifactPath = "_containertest/drop/"
 
  )
- 
+
+Write-Host $PSScriptRoot
+
 cd\
 cd $Env:SYSTEM_DEFAULTWORKINGDIRECTORY\$artifactPath
 
