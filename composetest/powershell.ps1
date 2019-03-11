@@ -20,7 +20,7 @@ Write-Host $Env:BUILD_REPOSITORYNAME
 
 
 cd\
-cd $Env:SYSTEM_DEFAULTWORKINGDIRECTORY\$imageIdName
+cd $Env:SYSTEM_DEFAULTWORKINGDIRECTORY\$artifactPath
 
 $Env:APP_IMAGE = "$imageIdName"
 
